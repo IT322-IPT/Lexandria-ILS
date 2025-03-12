@@ -1,3 +1,8 @@
+<?php
+session_start();
+$fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fullName"] : "Guest";
+?>    
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -170,12 +175,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../../assets/img/ye.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Kanye Suckondeeznuts</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($fullName); ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kanye Suckondeeznuts</h6>
+              <h6><?php echo htmlspecialchars($fullName); ?></h6>
               <span>User</span>
             </li>
             <li>
