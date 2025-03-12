@@ -8,8 +8,9 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="../../assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <img src="../../assets/img/lexandria-dako.png" alt="" width="25">
+        <span class="d-none d-lg-block" style="font-family: 'MicrobrewSoftOne'; font-size: 24px; color: #4a4a4a; letter-spacing: 0.5px;">Lexandria</span>
+        <!-- <img src="../../assets/img/lexandria-text.png" alt="Lexandria" width="200"> -->
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

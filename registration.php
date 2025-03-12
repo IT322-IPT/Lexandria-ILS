@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title>Lexandria - Discover, Borrow, Read</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/lexandria-dako.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -52,9 +52,10 @@
 
                 <div class="card-body">
 
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                  <div class="pt-4 pb-2" style="margin-bottom: 25px;">
+                    <img src="assets/img/lexandria-cropped.png" alt="Login Logo" width="400" class="mb-3">
+                    <h5 class="card-title text-center pb-0 fs-4">Sign up to Lexandria</h5>
+                    <!-- <p class="text-center small">Enter your personal details to create account</p> -->
                   </div>
 
                   <form class="row g-3 needs-validation" action="./controller/registration.php" method="POST" novalidate>
@@ -128,10 +129,10 @@
                       </div>
                     </div> -->
                       <div class="col-12">
-                        <button class="btn btn-primary w-100" type="submit" name="registration">Create Account</button>
+                        <button class="btn btn-primary w-100" type="submit" name="registration">Sign up</button>
                       </div>
-                      <div class="col-12">
-                        <p class="small mb-0">Already have an account? <a href="./login.php">Log in</a></p>
+                      <div class="col-12" style="align-items: center; display: flex; justify-content: center;">
+                      <p class="small mb-0">Already have an account? <a href="./login.php">Log in</a></p>
                       </div>
                   </form>
 

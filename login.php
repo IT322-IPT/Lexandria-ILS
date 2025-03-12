@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Lexandria - Discover, Borrow, Read</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/lexandria-dako.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -61,8 +61,9 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <img src="assets/img/lexandria-cropped.png" alt="Login Logo" width="400" class="mb-3">
+                    <h5 class="card-title text-center pb-0 fs-4">Login to Lexandria</h5>
+                    <!-- <p class="text-center small">Enter your username & password to login</p> -->
                   </div>
 
                   <form action="./controller/login.php" method="POST" class="row g-3 needs-validation" novalidate> <!-- pangutana diri -->
@@ -91,7 +92,7 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12" style="align-items: center; display: flex; justify-content: center;">
                       <p class="small mb-0">Don't have account? <a href="./registration.php">Create an account</a></p>
                     </div>
                   </form>
