@@ -176,7 +176,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>Kanye Suckondeeznuts</h6>
-              <span>OF Model</span>
+              <span>Admin</span>
             </li>
             <li>
               <hr class="dropdown-divider">
