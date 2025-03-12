@@ -184,14 +184,14 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="manage-books.html">
-          <i class="bi bi-person"></i>
+          <i class="bi bi-journals"></i>  <!-- originally bi-person -->
           <span>Manage Books</span>
         </a>
       </li><!-- End Manage Books (previously Profile Page) Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="manage-users.html">
-          <i class="bi bi-question-circle"></i>
+          <i class="bi bi-people"></i> <!-- originally bi-question-circle -->
           <span>Manage Users</span>
         </a>
       </li><!-- End Manage Users (previously F.A.Q Page) Nav -->
@@ -205,7 +205,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="borrowed-books.html">
-          <i class="bi bi-card-list"></i>
+          <i class="bi bi-book-half"></i> <!-- originally bi-card-list -->
           <span>Borrowed Books</span>
         </a>
       </li><!-- End Manage All Borrowed Books (previously Register Page) Nav -->

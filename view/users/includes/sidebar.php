@@ -184,21 +184,21 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-borrow.html">
-          <i class="bi bi-question-circle"></i>
+          <i class="bi bi-book"></i> <!-- originally bi bi-question-circle -->
           <span>Borrow</span>
         </a>
       </li><!-- End Borrow (previously F.A.Q) Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-return.html">
-          <i class="bi bi-envelope"></i>
+          <i class="bi bi-box-arrow-in-left"></i> <!-- originally bi bi-envelope -->
           <span>Return</span>
         </a>
       </li><!-- End Return (previously Contact) Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="request.html">
-          <i class="bi bi-person"></i>
+          <i class="bi bi-send"></i> <!-- originally bi bi-person -->
           <span>Request</span>
         </a>
       </li><!-- End Request (previously Profile Page) Nav -->
