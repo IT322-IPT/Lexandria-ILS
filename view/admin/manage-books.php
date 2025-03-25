@@ -52,6 +52,14 @@ include("./includes/topbar.php");
     <div class="card-body">
         <h5 class="card-title">Books List</h5>
 
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="">
+            <input type="text" name="query" placeholder="Search by ISBN, Title, Author, Genre, or Status" class="form-control w-100">
+            <button type="submit" title="Search"><i class="bi bi-search fs-5"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
         <!-- Table with striped rows -->
         <table class="table table-striped">
             <thead>
@@ -67,13 +75,25 @@ include("./includes/topbar.php");
             </thead>
             <tbody>
                 <?php
-                include("../../dB/config.php"); 
+                include("../../dB/config.php");
 
-                $query = "SELECT * FROM books"; 
+                $searchQuery = "";
+                if (isset($_POST['query']) && !empty($_POST['query'])) {
+                    $searchQuery = trim($_POST['query']);
+                    $query = "SELECT * FROM books WHERE 
+                              isbn LIKE '%$searchQuery%' OR 
+                              title LIKE '%$searchQuery%' OR 
+                              author LIKE '%$searchQuery%' OR 
+                              genre LIKE '%$searchQuery%' OR 
+                              status LIKE '%$searchQuery%'";
+                } else {
+                    $query = "SELECT * FROM books";
+                }
+
                 $result = mysqli_query($conn, $query);
 
                 if (!$result) {
-                    die("Query failed: " . mysqli_error($conn)); 
+                    die("Query failed: " . mysqli_error($conn));
                 }
 
                 if (mysqli_num_rows($result) > 0) {
@@ -81,7 +101,7 @@ include("./includes/topbar.php");
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>
                               <th scope='row'>{$count}</th>
-                              <td>{$row['isbn']}</td> <!-- ISBN is now the first column -->
+                              <td>{$row['isbn']}</td>
                               <td>{$row['title']}</td>
                               <td>{$row['author']}</td>
                               <td>{$row['page_count']}</td>
@@ -94,12 +114,13 @@ include("./includes/topbar.php");
                     echo "<tr><td colspan='7' class='text-center'>No books found</td></tr>";
                 }
 
-                mysqli_close($conn); 
+                mysqli_close($conn);
                 ?>
             </tbody>
         </table>
     </div>
 </div>
+
 
 
 <?php
