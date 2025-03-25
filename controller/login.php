@@ -36,7 +36,7 @@ if(isset($_POST["login"])) {
             $_SESSION["auth"] = true;
             $_SESSION["role"] = $userRole;
             $_SESSION["authUser"] = [
-                'userId' => $userId,
+                'userId' => $userID,
                 'fullName' => $fullname,
                 'email' => $email,
             ];

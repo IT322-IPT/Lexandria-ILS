@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -183,7 +183,7 @@
       <!-- <li class="nav-heading">Pages</li> -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-borrow.html">
+        <a class="nav-link collapsed" href="pages-borrow.php">
           <i class="bi bi-book"></i> <!-- originally bi bi-question-circle -->
           <span>Borrow</span>
         </a>
