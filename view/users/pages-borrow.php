@@ -37,9 +37,9 @@ $Email = $_SESSION['authUser']['email'];
       <!-- End Return (previously Contact) Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="request.html">
-          <i class="bi bi-send"></i> <!-- originally bi bi-person -->
-          <span>Request</span>
+        <a class="nav-link collapsed" href="pages-request.php">
+          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <span>Missing a book?</span>
         </a>
       </li><!-- End Request (previously Profile Page) Nav -->
 
@@ -63,9 +63,19 @@ $Email = $_SESSION['authUser']['email'];
         <input type="email" class="form-control" id="Email" name="email" value="<?php echo $Email; ?>" readonly>
       </div>
       <div class="col-12">
-        <label for="ISBN" class="form-label">ISBN</label>
-        <input type="text" class="form-control" id="ISBN" name="isbn" required>
-      </div>
+    <label for="ISBN" class="form-label">Select Book</label>
+    <select class="form-control" id="ISBN" name="isbn" required>
+        <option value="">Select a book</option>
+        <?php
+        include("../../dB/config.php");
+        $query = "SELECT isbn, title FROM books";
+        $result = mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<option value='{$row['isbn']}'>{$row['title']} ({$row['isbn']})</option>";
+        }
+        ?>
+    </select>
+</div>
       <div class="col-6">
         <label for="BorrowDate" class="form-label">Borrow Date</label>
         <input type="date" class="form-control" id="BorrowDate" name="borrowDate" required>

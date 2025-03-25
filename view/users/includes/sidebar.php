@@ -198,9 +198,9 @@
       <!-- End Return (previously Contact) Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="request.html">
-          <i class="bi bi-send"></i> <!-- originally bi bi-person -->
-          <span>Request</span>
+        <a class="nav-link collapsed" href="pages-request.php">
+          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <span>Missing a book?</span>
         </a>
       </li><!-- End Request (previously Profile Page) Nav -->
 

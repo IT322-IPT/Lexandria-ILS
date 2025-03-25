@@ -197,14 +197,14 @@
       </li><!-- End Manage Users (previously F.A.Q Page) Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="requests.html">
+        <a class="nav-link collapsed" href="requests.php">
           <i class="bi bi-envelope"></i>
           <span>Requests</span>
         </a>
       </li><!-- End Requests (previously Contact Page) Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="borrowed-books.html">
+        <a class="nav-link collapsed" href="borrowed-books.php">
           <i class="bi bi-book-half"></i> <!-- originally bi-card-list -->
           <span>Borrowed Books</span>
         </a>
