@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -183,7 +183,7 @@
       <!-- <li class="nav-heading">Pages</li> -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="manage-books.html">
+        <a class="nav-link collapsed" href="manage-books.php">
           <i class="bi bi-journals"></i>  <!-- originally bi-person -->
           <span>Manage Books</span>
         </a>
