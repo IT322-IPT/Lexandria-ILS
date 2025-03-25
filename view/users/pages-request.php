@@ -3,7 +3,7 @@ session_start();
 include("../../dB/config.php");
 include("./includes/header.php");
 include("./includes/topbar.php");
-include("./includes/sidebar.php");
+include("./includes/sidebar-pages-request.php");
 
 if (isset($_SESSION['success_message'])) {
   echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
@@ -14,44 +14,6 @@ if (isset($_SESSION['success_message'])) {
 $FullName = $_SESSION['authUser']['fullName']; 
 $Email = $_SESSION['authUser']['email'];
 ?>
-
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
-
-  <ul class="sidebar-nav" id="sidebar-nav">
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="index.php">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
-      </a>
-    </li><!-- End Dashboard Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-borrow.php">
-        <i class="bi bi-book"></i> <!-- originally bi bi-question-circle -->
-        <span>Borrow</span>
-      </a>
-    </li><!-- End Borrow (previously F.A.Q) Page Nav -->
-
-    <!-- <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-return.html">
-        <i class="bi bi-box-arrow-in-left"></i> originally bi bi-envelope
-        <span>Return</span>
-      </a>
-    </li>-->
-    <!-- End Return (previously Contact) Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link" href="pages-request.php">
-        <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
-        <span>Missing a book?</span>
-      </a>
-    </li><!-- End Request (previously Profile Page) Nav -->
-
-  </ul>
-
-</aside><!-- End Sidebar-->
 
 
 <h1>Can't find a book you're looking for?</h1>
@@ -90,3 +52,7 @@ $Email = $_SESSION['authUser']['email'];
 
     </div>
 </div>
+
+<?php
+include("./includes/footer.php");
+?>
