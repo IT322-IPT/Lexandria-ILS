@@ -7,9 +7,21 @@ if(isset($_POST["login"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $query = "SELECT `userId`, `firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`, `verification`, `role` 
-    FROM `users` WHERE email = '$email' AND password = '$password' LIMIT 1;";
+    // $query = "SELECT `userId`, `firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`, `verification`, `role` 
+    // FROM `users` WHERE email = '$email' AND password = '$password' LIMIT 1;";
 
+    $query = "SELECT `userId`, `firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`, `verification`, `role` 
+          FROM `users` 
+          WHERE email = '$email' AND password = '$password' 
+          
+          UNION 
+
+          SELECT `adminId` AS userId, `firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`, 'verified' AS verification, 'admin' AS role
+          FROM `admins`
+          WHERE email = '$email' AND password = '$password' 
+          
+          LIMIT 1;";
+          
     $query_run = mysqli_query($conn, $query);
 
     if($query_run) {

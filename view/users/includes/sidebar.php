@@ -189,12 +189,13 @@
         </a>
       </li><!-- End Borrow (previously F.A.Q) Page Nav -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="pages-return.html">
-          <i class="bi bi-box-arrow-in-left"></i> <!-- originally bi bi-envelope -->
+          <i class="bi bi-box-arrow-in-left"></i> originally bi bi-envelope
           <span>Return</span>
         </a>
-      </li><!-- End Return (previously Contact) Page Nav -->
+      </li>-->
+      <!-- End Return (previously Contact) Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="request.html">

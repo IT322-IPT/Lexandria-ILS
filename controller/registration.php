@@ -27,7 +27,10 @@ if($password != $confirmPass){
 
 // Validate if email already exists
 
-$query = "SELECT * FROM `users` WHERE `email` = '$email'";
+// $query = "SELECT * FROM `users` WHERE `email` = '$email'";
+$query = "SELECT email FROM users WHERE email = '$email' 
+          UNION 
+          SELECT email FROM admins WHERE email = '$email'";
 $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) > 0){
