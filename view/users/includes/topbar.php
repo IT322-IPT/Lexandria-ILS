@@ -1,5 +1,13 @@
 <?php
 session_start();
+if (!isset($_SESSION["authUser"])) {
+  header("Location: ../../../../IT322/login.php");
+  exit();
+}
+// Prevent browser caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fullName"] : "Guest";
 ?>    
   
@@ -219,7 +227,7 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../../../../IT322/login.php">
+              <a class="dropdown-item d-flex align-items-center" href="../../../../IT322/logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>

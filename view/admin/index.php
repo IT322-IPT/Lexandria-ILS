@@ -1,4 +1,15 @@
 <?php
+session_start();
+if (!isset($_SESSION["authUser"])) {
+  header("Location: ../../../IT322/login.php");
+  exit();
+}
+// Prevent browser caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: 0");
+
+
 include("../../dB/config.php");
 include("./includes/header.php");
 include("./includes/topbar.php");
