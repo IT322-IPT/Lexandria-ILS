@@ -44,23 +44,63 @@ if (!$result) {
     </div>
 
     <div class="row">
-        <?php if (mysqli_num_rows($result) > 0) { while ($row = mysqli_fetch_assoc($result)) { ?>
-            <div class="col-lg-3 mb-4">
-                <div class="card">
-                    <img src="../../assets/img/books/<?= rawurlencode($row['title']) ?>.jpg" class="card-img-top" alt="<?= htmlspecialchars($row['title']) ?>" onerror="this.src='../../assets/img/books/default.jpg'">
-                    <div class="card-body">
-                        <h5 class="card-title text-center font-weight-bold"><?= htmlspecialchars($row['title']) ?></h5>
-                        <p class="card-text"><strong>Author:</strong> <?= htmlspecialchars($row['author']) ?></p>
-                        <p class="card-text"><strong>Genre:</strong> <?= htmlspecialchars($row['genre']) ?></p>
-                        <p class="card-text"><strong>Page Count:</strong> <?= htmlspecialchars($row['page_count']) ?></p>
-                        <p class="card-text"><strong>ISBN:</strong> <?= htmlspecialchars($row['isbn']) ?></p>
-                    </div>
+    <?php if (mysqli_num_rows($result) > 0) { while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <img src="../../assets/img/books/<?= rawurlencode($row['title']) ?>.jpg" class="card-img-top" alt="<?= htmlspecialchars($row['title']) ?>" onerror="this.src='../../assets/img/books/default.jpg'">
+                <div class="card-body text-center">
+                    <h5 class="card-title font-weight-bold"><?= htmlspecialchars($row['title']) ?></h5>
+                    <p class="card-text"><strong>Author:</strong> <?= htmlspecialchars($row['author']) ?></p>
+                    <p class="card-text"><strong>Genre:</strong> <?= htmlspecialchars($row['genre']) ?></p>
+                    <p class="card-text"><strong>Page Count:</strong> <?= htmlspecialchars($row['page_count']) ?></p>
+                    <p class="card-text"><strong>ISBN:</strong> <?= htmlspecialchars($row['isbn']) ?></p>
+                    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modal<?= $row['isbn'] ?>">
+                        View Details
+                    </button>
                 </div>
             </div>
-        <?php }} else { ?>
-            <div class="col-12 text-center mt-4"><h5 style='color: blue;'>Book not found</h5></div>
-        <?php } ?>
+        </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal<?= $row['isbn'] ?>" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?= htmlspecialchars($row['title']) ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Author:</strong> <?= htmlspecialchars($row['author']) ?></p>
+                <p><strong>Genre:</strong> <?= htmlspecialchars($row['genre']) ?></p>
+                <p><strong>Page Count:</strong> <?= htmlspecialchars($row['page_count']) ?></p>
+                <p><strong>ISBN:</strong> <?= htmlspecialchars($row['isbn']) ?></p>
+                <p><strong>Description:</strong> <?= htmlspecialchars($row['synopsis']) ?></p>
+                <p><strong>Status:</strong> 
+                    <?php if ($row['status'] === 'Checked Out') : ?>
+                        <span class="badge bg-light text-dark">Checked Out</span>
+                    <?php else : ?>
+                        <span class="badge bg-primary text-white">Available</span>
+                    <?php endif; ?>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <?php if ($row['status'] !== 'Checked Out') : ?>
+                    <a href="pages-borrow.php?isbn=<?= urlencode($row['isbn']) ?>" class="btn btn-primary">Borrow</a>
+                <?php endif; ?>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
+
+
+
+    <?php }} else { ?>
+        <div class="col-12 text-center mt-4"><h5 style='color: blue;'>Book not found</h5></div>
+    <?php } ?>
+</div>
+
+
 
 </div>
 
