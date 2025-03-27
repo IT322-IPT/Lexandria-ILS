@@ -125,6 +125,51 @@ if (isset($_POST["update"])) {
   mysqli_stmt_close($stmt);
 }
 
+// Fetch books borrowed per month
+$lineChartLabels = ['January', 'February', 'March'];
+$lineChartData = [0, 0, 0];
+
+$query = "SELECT MONTHNAME(request_date) AS month, COUNT(*) AS count 
+          FROM user_borrow_requests 
+          WHERE user_id = 15 
+          GROUP BY month 
+          ORDER BY request_date ASC";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $index = array_search($row["month"], $lineChartLabels);
+    if ($index !== false) {
+        $lineChartData[$index] = (int)$row["count"];
+    }
+}
+
+// Fetch most borrowed genres
+$pieChartData = [];
+$query = "SELECT b.genre, COUNT(*) AS count 
+          FROM user_borrow_requests ubr 
+          JOIN books b ON ubr.ISBN = b.isbn 
+          WHERE ubr.user_id = 15 
+          GROUP BY b.genre 
+          ORDER BY count DESC";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $pieChartData[] = ["value" => (int)$row["count"], "name" => $row["genre"]];
+}
+
+// Fetch most read authors
+$donutChartData = [];
+$donutChartLabels = [];
+$query = "SELECT b.author, COUNT(*) AS count 
+          FROM user_borrow_requests ubr 
+          JOIN books b ON ubr.ISBN = b.isbn 
+          WHERE ubr.user_id = 15 
+          GROUP BY b.author 
+          ORDER BY count DESC";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $donutChartLabels[] = $row["author"];
+    $donutChartData[] = (int)$row["count"];
+}
+
 mysqli_close($conn);
 ?>
 
@@ -168,7 +213,7 @@ mysqli_close($conn);
 
   <!--------------------------------------------------------->
 
-  <div class="col-xl-8">
+  <div class="col-xl-12">
     <div class="card">
       <div class="card-body pt-3">
 
@@ -193,27 +238,6 @@ mysqli_close($conn);
               Stats
             </button>
           </li>
-          <!-- Edit Profile Tab -->
-          <!-- <li class="nav-item">
-            <button
-              class="nav-link"
-              data-bs-toggle="tab"
-              data-bs-target="#profile-edit"
-            >
-              Edit Profile Details
-            </button>
-          </li> -->
-          <!-- Settings Tab -->
-          <!-- <li class="nav-item">
-            <button
-              class="nav-link"
-              data-bs-toggle="tab"
-              data-bs-target="#profile-settings"
-            >
-              Settings
-            </button>
-          </li> -->
-          <!-- Change Password Tab -->
           <li class="nav-item">
             <button
               class="nav-link"
@@ -227,7 +251,7 @@ mysqli_close($conn);
 
         <!--------------------------------------------------------->
 
-        <div class="tab-content pt-2">
+        <div class="tab-content pt-3">
           <!-- Start Overview -->
           <div class="tab-pane fade show active profile-overview"id="profile-overview">
             <h5 class="card-title">Profile Details</h5>
@@ -279,138 +303,117 @@ mysqli_close($conn);
 
           <!-- Start Stats -->
           <div class="tab-pane fade profile-stats" id="profile-stats">
-            <div class="col-lg-10">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Number of Books Borrowed</h5>
-
-                  <!-- Line Chart -->
-                  <canvas id="lineChart" style="max-height: 400px;"></canvas>
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new Chart(document.querySelector('#lineChart'), {
-                        type: 'line',
-                        data: {
-                          labels: ['January', 'February', 'March'],
-                          datasets: [{
-                            label: 'Books borrowed',
-                            data: [5, 4, 3],
-                            fill: false,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                          }]
-                        },
-                        options: {
-                          scales: {
-                            y: {
-                              beginAtZero: true
-                            }
-                          }
-                        }
-                      });
-                    });
-                  </script>
-                  <!-- End Line Chart -->
-
-                </div>
+              <div class="col-lg-10 mx-auto">
+                  <div class="card">
+                      <div class="card-body text-center">
+                          <h5 class="card-title">Number of Books Borrowed</h5>
+                          <p class="card-text">For current year - 2025</p>
+                        
+                          <!-- Line Chart -->
+                          <div class="d-flex justify-content-center">
+                            <canvas id="lineChart" style="max-height: 400px;"></canvas>
+                          </div>
+                          <script>
+                              document.addEventListener("DOMContentLoaded", () => {
+                                  new Chart(document.querySelector('#lineChart'), {
+                                      type: 'line',
+                                      data: {
+                                          labels: <?= json_encode($lineChartLabels); ?>,
+                                          datasets: [{
+                                              label: 'Books borrowed',
+                                              data: <?= json_encode($lineChartData); ?>,
+                                              fill: false,
+                                              borderColor: 'rgb(75, 192, 192)',
+                                              tension: 0.1
+                                          }]
+                                      },
+                                      options: {
+                                          scales: {
+                                              y: {
+                                                  beginAtZero: true
+                                              }
+                                          }
+                                      }
+                                  });
+                              });
+                          </script>
+                          <!-- End Line Chart -->
+                      </div>
+                  </div>
               </div>
-            </div>
 
-            <div class="col-lg-10">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Most Borrowed Genres</h5>
-                  <!-- Pie Chart -->
-                  <div id="pieChart" style="min-height: 400px;" class="echart"></div>
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      echarts.init(document.querySelector("#pieChart")).setOption({
-                        title: {
-                          text: 'My Top Genres',
-                          subtext: '2023-2025',
-                          left: 'center'
-                        },
-                        tooltip: {
-                          trigger: 'item'
-                        },
-                        legend: {
-                          orient: 'vertical',
-                          left: 'left'
-                        },
-                        series: [{
-                          // name: 'Access From',
-                          type: 'pie',
-                          radius: '50%',
-                          data: [{
-                              value: 8,
-                              name: 'Mystery'
-                            },
-                            {
-                              value: 1,
-                              name: 'Contemporary Romance'
-                            },
+              <div class="col-lg-10 mx-auto">
+                  <div class="card">
+                      <div class="card-body text-center">
+                          <h5 class="card-title">Most Borrowed Genres</h5>
 
-                            {
-                              value: 7,
-                              name: 'Dark Academia'
-                            },
-                            {
-                              value: 10,
-                              name: 'Classics'
-                            },
-                            {
-                              value: 2,
-                              name: 'Dystopian'
-                            },
-                            {
-                              value: 7,
-                              name: 'Fantasy'
-                            },
-                          ],
-                          emphasis: {
-                            itemStyle: {
-                              shadowBlur: 10,
-                              shadowOffsetX: 0,
-                              shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                          }
-                        }]
-                      });
-                    });
-                  </script>
-                  <!-- End Pie Chart -->
-
-                </div>
+                          <!-- Pie Chart -->
+                          <!-- <div class="d-flex justify-content-center"> -->
+                            <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+                          <!-- </div> -->
+                          <script>
+                              document.addEventListener("DOMContentLoaded", () => {
+                                  echarts.init(document.querySelector("#pieChart")).setOption({
+                                      title: {
+                                          text: 'My Top Genres',
+                                          subtext: '2025',
+                                          left: 'center'
+                                      },
+                                      tooltip: {
+                                          trigger: 'item'
+                                      },
+                                      legend: {
+                                          orient: 'vertical',
+                                          left: 'left'
+                                      },
+                                      series: [{
+                                          type: 'pie',
+                                          radius: '50%',
+                                          data: <?= json_encode($pieChartData); ?>,
+                                          emphasis: {
+                                              itemStyle: {
+                                                  shadowBlur: 10,
+                                                  shadowOffsetX: 0,
+                                                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                              }
+                                          }
+                                      }]
+                                  });
+                              });
+                          </script>
+                          <!-- End Pie Chart -->
+                      </div>
+                  </div>
               </div>
-            </div>
-            
-            <div class="col-lg-10 ">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Most Read Authors</h5>
 
-                  <!-- Donut Chart -->
-                  <div id="donutChart"></div>
+              <div class="col-lg-10 mx-auto">
+                  <div class="card">
+                      <div class="card-body text-center">
+                          <h5 class="card-title">Most Read Authors</h5>
 
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#donutChart"), {
-                        series: [44, 55, 13, 43, 22],
-                        chart: {
-                          height: 350,
-                          type: 'donut',
-                          toolbar: {
-                            show: true
-                          }
-                        },
-                        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-                      }).render();
-                    });
-                  </script>
-                  <!-- End Donut Chart -->
-                </div>
+                          <!-- Donut Chart -->
+                          <!-- <div class="d-flex justify-content-center"> -->
+                            <div id="donutChart"></div>
+                          <!-- </div> -->
+                          <script>
+                              document.addEventListener("DOMContentLoaded", () => {
+                                  new ApexCharts(document.querySelector("#donutChart"), {
+                                      series: <?= json_encode($donutChartData); ?>,
+                                      chart: {
+                                          height: 350,
+                                          type: 'donut',
+                                          toolbar: {
+                                              show: true
+                                          }
+                                      },
+                                      labels: <?= json_encode($donutChartLabels); ?>
+                                  }).render();
+                              });
+                          </script>
+                          <!-- End Donut Chart -->
+                      </div>
+                  </div>
               </div>
-            </div>
           </div>
           <!-- End Stats -->
 
@@ -563,58 +566,55 @@ mysqli_close($conn);
           </div> -->
           <!-- End Settings -->
 
-<!-- Start Edit Account -->
-<div class="tab-pane fade pt-3" id="profile-change-password">
-    <form method="POST" action="">
+          <!-- Start Edit Account -->
+          <div class="tab-pane fade pt-3" id="profile-change-password">
+              <form method="POST" action="">
 
-        <!-- Email Update -->
-        <div class="row mb-3">
-            <label for="email" class="col-md-4 col-lg-3 col-form-label">New Email</label>
-            <div class="col-md-8 col-lg-9">
-                <input name="email" type="email" class="form-control" id="email" />
-            </div>
+                  <!-- Email Update -->
+                  <div class="row mb-3">
+                      <label for="email" class="col-md-4 col-lg-3 col-form-label">New Email</label>
+                      <div class="col-md-8 col-lg-9">
+                          <input name="email" type="email" class="form-control" id="email" />
+                      </div>
+                  </div>
+
+                  <!-- Phone Update -->
+                  <div class="row mb-3">
+                      <label for="phone" class="col-md-4 col-lg-3 col-form-label">New Phone Number</label>
+                      <div class="col-md-8 col-lg-9">
+                          <input name="phone" type="tel" class="form-control" id="phone" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" />
+                      </div>
+                  </div>
+
+                  <!-- Password Update -->
+                  <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                          <input name="current_password" type="password" class="form-control" id="currentPassword" />
+                      </div>
+                  </div>
+
+                  <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                          <input name="new_password" type="password" class="form-control" id="newPassword" />
+                      </div>
+                  </div>
+
+                  <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                          <input name="confirm_password" type="password" class="form-control" id="renewPassword" />
+                      </div>
+                  </div>
+
+                  <div class="text-center">
+                      <button type="submit" name="update" class="btn btn-primary">Save Changes</button>
+                  </div>
+              </form>
+          </div>
+          <!-- End Edit Account -->
         </div>
-
-        <!-- Phone Update -->
-        <div class="row mb-3">
-            <label for="phone" class="col-md-4 col-lg-3 col-form-label">New Phone Number</label>
-            <div class="col-md-8 col-lg-9">
-                <input name="phone" type="tel" class="form-control" id="phone" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" />
-            </div>
-        </div>
-
-        <!-- Password Update -->
-        <div class="row mb-3">
-            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-            <div class="col-md-8 col-lg-9">
-                <input name="current_password" type="password" class="form-control" id="currentPassword" />
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-            <div class="col-md-8 col-lg-9">
-                <input name="new_password" type="password" class="form-control" id="newPassword" />
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-            <div class="col-md-8 col-lg-9">
-                <input name="confirm_password" type="password" class="form-control" id="renewPassword" />
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button type="submit" name="update" class="btn btn-primary">Save Changes</button>
-        </div>
-    </form>
-</div>
-<!-- End Edit Account -->
-
-
-        </div>
-
       </div>
     </div>
   </div>
