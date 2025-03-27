@@ -131,7 +131,7 @@ $lineChartData = [0, 0, 0];
 
 $query = "SELECT MONTHNAME(request_date) AS month, COUNT(*) AS count 
           FROM user_borrow_requests 
-          WHERE user_id = 15 
+          WHERE user_id = $user_id 
           GROUP BY month 
           ORDER BY request_date ASC";
 $result = $conn->query($query);
@@ -147,7 +147,7 @@ $pieChartData = [];
 $query = "SELECT b.genre, COUNT(*) AS count 
           FROM user_borrow_requests ubr 
           JOIN books b ON ubr.ISBN = b.isbn 
-          WHERE ubr.user_id = 15 
+          WHERE ubr.user_id = $user_id 
           GROUP BY b.genre 
           ORDER BY count DESC";
 $result = $conn->query($query);
@@ -161,7 +161,7 @@ $donutChartLabels = [];
 $query = "SELECT b.author, COUNT(*) AS count 
           FROM user_borrow_requests ubr 
           JOIN books b ON ubr.ISBN = b.isbn 
-          WHERE ubr.user_id = 15 
+          WHERE ubr.user_id = $user_id 
           GROUP BY b.author 
           ORDER BY count DESC";
 $result = $conn->query($query);

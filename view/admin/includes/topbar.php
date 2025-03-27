@@ -15,7 +15,7 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="../../assets/img/lexandria-dako.png" alt="" width="25">
         <span class="d-none d-lg-block" style="font-family: 'MicrobrewSoftOne'; font-size: 24px; color: #4a4a4a; letter-spacing: 0.5px;">Lexandria</span>
         <!-- <img src="../../assets/img/lexandria-text.png" alt="Lexandria" width="200"> -->
@@ -50,9 +50,9 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="admin-profile.php">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>My Account</span>
               </a>
             </li>
             <li>

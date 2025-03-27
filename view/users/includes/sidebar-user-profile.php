@@ -11,7 +11,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-borrow.html">
+        <a class="nav-link collapsed" href="pages-borrow.php">
           <i class="bi bi-book"></i> <!-- originally bi bi-question-circle -->
           <span>Borrow</span>
         </a>
