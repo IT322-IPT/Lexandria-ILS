@@ -159,6 +159,21 @@ if (isset($_POST['mark_returned'])) {
         mysqli_stmt_execute($stmtBook);
         mysqli_stmt_close($stmtBook);
 
+        // Update the user_borrow_requests table to set status to 'Returned'
+        $userQuery = "SELECT user_id FROM borrowed_books WHERE id = ?";
+        $stmtUser = mysqli_prepare($conn, $userQuery);
+        mysqli_stmt_bind_param($stmtUser, "i", $borrow_id);
+        mysqli_stmt_execute($stmtUser);
+        mysqli_stmt_bind_result($stmtUser, $user_id);
+        mysqli_stmt_fetch($stmtUser);
+        mysqli_stmt_close($stmtUser);
+        
+        $updateUserRequestQuery = "UPDATE user_borrow_requests SET status = 'Returned' WHERE user_id = ? AND ISBN = ? AND status = 'Approved'";
+        $stmtUserRequest = mysqli_prepare($conn, $updateUserRequestQuery);
+        mysqli_stmt_bind_param($stmtUserRequest, "is", $user_id, $isbn);
+        mysqli_stmt_execute($stmtUserRequest);
+        mysqli_stmt_close($stmtUserRequest);
+
         echo "<script>alert('Book marked as returned!'); window.location.href='borrowed-books.php';</script>";
     } else {
         echo "Error: ISBN not found.";
