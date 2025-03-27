@@ -41,9 +41,13 @@ if(isset($_POST["login"])) {
                 'email' => $email,
             ];
 
+            $_SESSION['message'] = "Successfully logged in";
+            $_SESSION['code'] = "success";
+
             if($userRole == 'admin'){
                 header("Location: ../view/admin/index.php");
             } else if ($userRole == 'user'){
+                // header("Location: ../login.php");
                 header("Location: ../view/users/index.php");
             } else {
                 $_SESSION['message'] = "No role found";
