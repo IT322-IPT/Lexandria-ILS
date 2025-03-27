@@ -24,7 +24,7 @@ include("./includes/topbar.php");
       </li><!-- End Manage Books (previously Profile Page) Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="manage-users.html">
+        <a class="nav-link collapsed" href="manage-users.php">
           <i class="bi bi-people"></i> <!-- originally bi-question-circle -->
           <span>Manage Users</span>
         </a>
