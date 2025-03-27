@@ -42,6 +42,13 @@ include("./includes/topbar.php");
           <span>Borrowed Books</span>
         </a>
       </li><!-- End Manage All Borrowed Books (previously Register Page) Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="acquisition-requests.php">
+          <i class="bi bi-book-half"></i> <!-- originally bi-card-list -->
+          <span>Acquisition Requests</span>
+        </a>
+      </li><!-- End Manage All Borrowed Books (previously Register Page) Nav -->
     </ul>
   </aside>
 <!-- End Sidebar-->
