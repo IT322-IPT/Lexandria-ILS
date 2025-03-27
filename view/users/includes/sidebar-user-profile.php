@@ -18,13 +18,26 @@
       </li><!-- End Borrow (previously F.A.Q) Page Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-pending-requests.php">
+          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <span>Pending Requests</span>
+        </a>
+      </li><!-- End Pending Requests (previously Profile Page) Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-my-books.php">
+          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <span>My Books</span>
+        </a>
+      </li><!-- End My Books (previously Profile Page) Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="pages-request.php">
           <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
           <span>Missing a book?</span>
         </a>
-      </li><!-- End Request (previously Profile Page) Nav -->
-
-
+      </li><!-- End Missing a Book (previously Profile Page) Nav -->
+      
     </ul>
 
   </aside><!-- End Sidebar-->

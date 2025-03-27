@@ -18,7 +18,7 @@
     </li><!-- End Borrow (previously F.A.Q) Page Nav -->
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-pending-requests.php">
+        <a class="nav-link" href="pages-pending-requests.php">
           <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
           <span>Pending Requests</span>
         </a>
@@ -30,9 +30,9 @@
           <span>My Books</span>
         </a>
       </li><!-- End My Books (previously Profile Page) Nav -->
-
-      <li class="nav-item">
-      <a class="nav-link" href="pages-request.php">
+      
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-request.php">
         <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
         <span>Missing a book?</span>
       </a>
