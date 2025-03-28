@@ -69,11 +69,12 @@ include("./includes/topbar.php");
             </select>
         </form>
 
-        <table class="table table-sm">
+        <table class="table table-sm center-text text-center">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Full Name</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">ISBN</th>
                     <th scope="col">Borrow Date</th>
@@ -103,6 +104,7 @@ include("./includes/topbar.php");
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>
                                 <th scope='row'>{$count}</th>
+                                <td>{$row['user_id']}</td>
                                 <td>{$row['full_name']}</td>
                                 <td>{$row['email']}</td>
                                 <td>{$row['isbn']}</td>
