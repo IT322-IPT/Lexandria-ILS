@@ -214,6 +214,19 @@ ob_end_flush(); // Send the output at the end
 ?>
 
 <div class="pagetitle">
+<?php if (isset($_SESSION['alertMessage'])): ?>
+    <div class="alert alert-<?php echo $_SESSION['alertType']; ?> alert-dismissible fade show d-flex align-items-center" role="alert">
+        <?php if ($_SESSION['alertType'] === "success"): ?>
+            <i class="bi bi-check-circle-fill me-2"></i>
+        <?php else: ?>
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <?php endif; ?>
+        <?php echo $_SESSION['alertMessage']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['alertMessage']); unset($_SESSION['alertType']); ?>
+<?php endif; ?>
+
   <h1>Profile</h1>
   <nav>
     <ol class="breadcrumb">
@@ -227,6 +240,8 @@ ob_end_flush(); // Send the output at the end
 <section class="section profile">
   <div class="col-xl-12">
     <div class="card">
+
+
       <div class="card-body pt-3">
 
         <ul class="nav nav-tabs nav-tabs-bordered">
@@ -432,23 +447,7 @@ ob_end_flush(); // Send the output at the end
 
           <!-- Start Edit Account -->
           <div class="tab-pane fade pt-3" id="profile-change-password">
-          <?php
-            if (isset($_SESSION['alertMessage']) && isset($_SESSION['alertType'])) {
-              $alertMessage = $_SESSION['alertMessage'];
-              $alertType = $_SESSION['alertType']; // success, danger, info, etc.
-              ?>
-              <div class="alert alert-<?php echo $alertType;?> alert-dismissible fade show" role="alert">
-                  <i class="bi bi-check-circle me-1"></i>
-                  <?php echo $alertMessage; ?>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <?php
-              // Clear the session alert after it's displayed
-              unset($_SESSION['alertMessage']);
-              unset($_SESSION['alertType']);
-            }
-          ?>
-          <form method="POST" action="" id="editAccountForm">
+          <form method="POST" action="edit-profile.php" id="editAccountForm">
               <div class="row mb-3">
                   <label for="email" class="col-md-4 col-lg-3 col-form-label">New Email</label>
                   <div class="col-md-8 col-lg-9">
