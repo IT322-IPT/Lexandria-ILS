@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_close($conn);
     
         // Redirect after successful request
-        $_SESSION['show_modal'] = true;
+        $_SESSION['show_success'] = true;
         header("Location: pages-borrow.php");
         exit();
 }

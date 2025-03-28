@@ -22,6 +22,7 @@ include("./includes/topbar.php");
 $UserID = $_SESSION['authUser']['userId'];
 $FullName = $_SESSION['authUser']['fullName']; 
 $Email = $_SESSION['authUser']['email'];
+
 ?>
 <body>
   <!-- ======= Sidebar ======= -->
@@ -42,14 +43,6 @@ $Email = $_SESSION['authUser']['email'];
             <span>Borrow</span>
           </a>
         </li><!-- End Borrow (previously F.A.Q) Page Nav -->
-
-        <!-- <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-return.html">
-            <i class="bi bi-box-arrow-in-left"></i> originally bi bi-envelope
-            <span>Return</span>
-          </a>
-        </li>-->
-        <!-- End Return (previously Contact) Page Nav -->
 
         <li class="nav-item">
           <a class="nav-link collapsed" href="pages-pending-requests.php">
@@ -77,6 +70,15 @@ $Email = $_SESSION['authUser']['email'];
   <!-- End Sidebar-->
 
   <main id="main" class="main">
+  <?php if (isset($_SESSION['show_success'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-1"></i>
+      Borrow request submitted successfully!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['show_success']); ?>
+  <?php endif; ?>
+
   <div class="card">
     <div class="card-body">
         <h5 class="card-title">Borrow a Book</h5>
@@ -130,22 +132,6 @@ $Email = $_SESSION['authUser']['email'];
               <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
 
-            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Success</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    Borrow request submitted successfully!
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                  </div>
-                </div>
-              </div>
-            </div>
       </form>
     </div>
   </div>
@@ -162,14 +148,7 @@ $Email = $_SESSION['authUser']['email'];
             document.getElementById("ReturnDate").value = returnDate.toISOString().split('T')[0];
         }
     });
-    window.onload = function() {
-            <?php if (isset($_SESSION['show_modal'])) { ?>
-                var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-                myModal.show();
-            <?php unset($_SESSION['show_modal']); } ?>
-    };
   </script>
-
   <?php
   include("./includes/footer.php");
   ?>
