@@ -72,7 +72,7 @@ $result = mysqli_query($conn, $query);
           <th scope="col">Email</th>
           <th scope="col">ISBN</th>
           <th scope="col">Borrow Date</th>
-          <th scope="col">Return Date</th>
+          <th scope="col">Due Date</th>
           <th scope="col">Action</th>
         </tr>
       </thead>

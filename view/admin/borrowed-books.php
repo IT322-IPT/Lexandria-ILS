@@ -56,8 +56,8 @@ include("./includes/topbar.php");
 <main id="main" class="main">
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Books on Loan</h5>
-        <p>List of books that have been approved and borrowed.</p>
+        <h5 class="card-title">Checked out books</h5>
+        <p>List of books that have been approved and are currently checked out.</p>
 
         <!-- Filter Dropdown -->
         <form method="GET" class="mb-3">
@@ -77,7 +77,7 @@ include("./includes/topbar.php");
                     <th scope="col">Email</th>
                     <th scope="col">ISBN</th>
                     <th scope="col">Borrow Date</th>
-                    <th scope="col">Return Date</th>
+                    <th scope="col">Due Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>

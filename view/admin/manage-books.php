@@ -68,7 +68,7 @@ include("./includes/topbar.php");
         </div><!-- End Search Bar -->
 
         <!-- Table with striped rows -->
-        <table class="table table-striped">
+        <table class="table table-striped text-center">
             <thead>
                 <tr>
                     <th scope="col">#</th>

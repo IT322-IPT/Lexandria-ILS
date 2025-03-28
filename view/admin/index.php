@@ -54,7 +54,7 @@ $requestCounts = array_column($requestedBooksData, 'request_count');
 $requestedBooksData = fetchData($conn, "
     SELECT book_title, author, COUNT(id) AS request_count 
     FROM book_requests 
-    GROUP BY book_title, author 
+    GROUP BY book_title 
     ORDER BY request_count DESC 
     LIMIT 3
 ");
@@ -137,14 +137,14 @@ $top_books = mysqli_fetch_all($result, MYSQLI_ASSOC); // Store data in an array
                             </ul>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($book['book_title']); ?> <span>| Top Book Requests</span></h5>
+                            <h5 class="card-title"><?php echo htmlspecialchars($book['book_title']); ?> <span>| <?php echo htmlspecialchars($book['author']); ?></span></h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-book"></i>
                                 </div>
                                 <div class="ps-3">
                                     <h6><?php echo $book['request_count']; ?> Requests</h6>
-                                    <span class="text-muted small pt-2">By <?php echo htmlspecialchars($book['author']); ?></span>
+                                    <span class="text-muted small pt-2">Top 3 Most Hightly Requested</span>
                                 </div>
                             </div>
                         </div>

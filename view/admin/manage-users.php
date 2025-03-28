@@ -74,10 +74,11 @@ include("./includes/sidebar.php");
           <p>This table displays all registered users.</p>
 
           <!-- Table with stripped rows -->
-          <table class="table datatable">
+          <table class="table datatable" text-center>
             <thead>
               <tr>
                 <th>#</th>
+                <th>User ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
@@ -95,6 +96,7 @@ include("./includes/sidebar.php");
                   while ($row = mysqli_fetch_assoc($result)) {
                       echo "<tr>";
                       echo "<td>" . $count . "</td>";
+                      echo "<td>" . htmlspecialchars($row['userId']) . "</td>";
                       echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
                       echo "<td>" . htmlspecialchars($row['lastName']) . "</td>";
                       echo "<td>" . htmlspecialchars($row['email']) . "</td>";
