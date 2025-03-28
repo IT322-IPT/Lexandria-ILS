@@ -40,13 +40,13 @@ include("./includes/topbar.php");
       <li class="nav-item">
         <a class="nav-link" href="borrowed-books.php">
           <i class="bi bi-book-half"></i> <!-- originally bi-card-list -->
-          <span>Borrowed Books</span>
+          <span>Books on Loan</span>
         </a>
       </li><!-- End Manage All Borrowed Books (previously Register Page) Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="acquisition-requests.php">
-          <i class="bi bi-book-half"></i> <!-- originally bi-card-list -->
-          <span>Acquisition Requests</span>
+        <i class="bi bi-box-arrow-in-right"></i> <!-- originally bi-card-list -->
+        <span>Acquisition Requests</span>
         </a>
       </li><!-- End Manage All Borrowed Books (previously Register Page) Nav -->
     </ul>
@@ -56,7 +56,7 @@ include("./includes/topbar.php");
 <main id="main" class="main">
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Borrowed Books</h5>
+        <h5 class="card-title">Books on Loan</h5>
         <p>List of books that have been approved and borrowed.</p>
 
         <!-- Filter Dropdown -->

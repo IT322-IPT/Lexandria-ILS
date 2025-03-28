@@ -49,13 +49,13 @@ $result = mysqli_query($conn, $query);
     <li class="nav-item">
       <a class="nav-link collapsed" href="borrowed-books.php">
         <i class="bi bi-book-half"></i>
-        <span>Borrowed Books</span>
+        <span>Books on Loan</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="acquisition-requests.php">
-        <i class="bi bi-book-half"></i>
-        <span>Acquisition Requests</span>
+      <i class="bi bi-box-arrow-in-right"></i>
+      <span>Acquisition Requests</span>
       </a>
     </li>
   </ul>
