@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 session_start();
 if (!isset($_SESSION["authUser"])) {
     header("Location: ../../../IT322/login.php");
@@ -47,82 +48,201 @@ if (isset($_SESSION["authUser"]["userId"])) {
   $admin_id = $_SESSION["authUser"]["userId"] ?? "Ngano way id ambot";
   $fullName = $_SESSION["authUser"]["fullName"] ?? "Guest";
   $gender = $_SESSION["authUser"]["gender"] ?? "Not Specified";
-  $email = $_SESSION["authUser"]["email"] ?? "No Email";
-  $phone = $_SESSION["authUser"]["phone"] ?? "No Phone Number";
+  $admin_email = $_SESSION["authUser"]["email"] ?? "No Email";
+  $admin_phone = $_SESSION["authUser"]["phone"] ?? "No Phone Number";
   $birthday = $_SESSION["authUser"]["birthday"] ?? "No Birthday";
   $dateJoined = $_SESSION["authUser"]["createdAt"] ?? " ";
+  
 // Handle form submission for updating email, phone, or password
-if (isset($_POST["update"])) {
-    $admin_id = $_SESSION["authUser"]["userId"];
-    $new_email = !empty(trim($_POST["email"])) ? mysqli_real_escape_string($conn, $_POST["email"]) : null;
-    $new_phone = !empty(trim($_POST["phone"])) ? mysqli_real_escape_string($conn, $_POST["phone"]) : null;
-    $current_password = !empty(trim($_POST["current_password"])) ? $_POST["current_password"] : null;
-    $new_password = !empty(trim($_POST["new_password"])) ? $_POST["new_password"] : null;
-    $confirm_password = !empty(trim($_POST["confirm_password"])) ? $_POST["confirm_password"] : null;
+// if (isset($_POST["update"])) {
+//     $admin_id = $_SESSION["authUser"]["userId"];
+//     $new_email = !empty(trim($_POST["email"])) ? mysqli_real_escape_string($conn, $_POST["email"]) : null;
+//     $new_phone = !empty(trim($_POST["phone"])) ? mysqli_real_escape_string($conn, $_POST["phone"]) : null;
+//     $current_password = !empty(trim($_POST["current_password"])) ? $_POST["current_password"] : null;
+//     $new_password = !empty(trim($_POST["new_password"])) ? $_POST["new_password"] : null;
+//     $confirm_password = !empty(trim($_POST["confirm_password"])) ? $_POST["confirm_password"] : null;
   
-    // Count how many fields are being updated
-    $update_count = 0;
-    if ($new_email) $update_count++;
-    if ($new_phone) $update_count++;
-    if ($new_password) $update_count++;
+//     // Count how many fields are being updated
+//     $update_count = 0;
+//     if ($new_email) $update_count++;
+//     if ($new_phone) $update_count++;
+//     if ($new_password) $update_count++;
   
-    if ($update_count === 0) {
-        echo "<script>alert('No changes detected. Please modify at least one field.');</script>";
-        exit();
-    } elseif ($update_count > 1) {
-        echo "<script>alert('You can only update one field at a time.');</script>";
-        exit();
-    }
+//     if ($update_count === 0) {
+//         echo "<script>alert('No changes detected. Please modify at least one field.');</script>";
+//         exit();
+//     } elseif ($update_count > 1) {
+//         echo "<script>alert('You can only update one field at a time.');</script>";
+//         exit();
+//     }
   
-    // Prepare dynamic update query
-    $update_query = "UPDATE admins SET ";
-    $params = [];
-    $param_types = "";
+//     // Prepare dynamic update query
+//     $update_query = "UPDATE admins SET ";
+//     $params = [];
+//     $param_types = "";
   
-    if ($new_email) {
-        $update_query .= "email = ? ";
-        $params[] = $new_email;
-        $param_types .= "s";
-    } elseif ($new_phone) {
-        $update_query .= "phoneNumber = ? ";
-        $params[] = $new_phone;
-        $param_types .= "s";
-    } elseif ($new_password) {
-        if (!$current_password || $current_password !== $_SESSION["authUser"]["password"]) {
-            echo "<script>alert('Incorrect current password.');</script>";
-            exit();
-        }
+//     if ($new_email) {
+//         $update_query .= "email = ? ";
+//         $params[] = $new_email;
+//         $param_types .= "s";
+//     } elseif ($new_phone) {
+//         $update_query .= "phoneNumber = ? ";
+//         $params[] = $new_phone;
+//         $param_types .= "s";
+//     } elseif ($new_password) {
+//         if (!$current_password || $current_password !== $_SESSION["authUser"]["password"]) {
+//             echo "<script>alert('Incorrect current password.');</script>";
+//             exit();
+//         }
   
-        if ($new_password !== $confirm_password) {
-            echo "<script>alert('New passwords do not match.');</script>";
-            exit();
-        }
+//         if ($new_password !== $confirm_password) {
+//             echo "<script>alert('New passwords do not match.');</script>";
+//             exit();
+//         }
   
-        $update_query .= "password = ? ";
-        $params[] = $new_password;
-        $param_types .= "s";
-    }
+//         $update_query .= "password = ? ";
+//         $params[] = $new_password;
+//         $param_types .= "s";
+//     }
   
-    $update_query .= "WHERE adminId = ?";
-    $params[] = $admin_id;
-    $param_types .= "i";
+//     $update_query .= "WHERE adminId = ?";
+//     $params[] = $admin_id;
+//     $param_types .= "i";
   
-    $stmt = mysqli_prepare($conn, $update_query);
-    mysqli_stmt_bind_param($stmt, $param_types, ...$params);
+//     $stmt = mysqli_prepare($conn, $update_query);
+//     mysqli_stmt_bind_param($stmt, $param_types, ...$params);
   
-    if (mysqli_stmt_execute($stmt)) {
-        // Update session variables if needed
-        if ($new_email) $_SESSION["authUser"]["email"] = $new_email;
-        if ($new_phone) $_SESSION["authUser"]["phone"] = $new_phone;
-        if ($new_password) $_SESSION["authUser"]["password"] = $new_password; // No hashing
+//     if (mysqli_stmt_execute($stmt)) {
+//         // Update session variables if needed
+//         if ($new_email) $_SESSION["authUser"]["email"] = $new_email;
+//         if ($new_phone) $_SESSION["authUser"]["phone"] = $new_phone;
+//         if ($new_password) $_SESSION["authUser"]["password"] = $new_password; // No hashing
   
-        echo "<script>alert('Changes saved successfully!');</script>";
-    } else {
-        echo "<script>alert('Error updating profile.');</script>";
-    }
+//         echo "<script>alert('Changes saved successfully!');</script>";
+//     } else {
+//         echo "<script>alert('Error updating profile.');</script>";
+//     }
   
-    mysqli_stmt_close($stmt);
+//     mysqli_stmt_close($stmt);
+//   }
+// 
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update"])) {
+  $admin_id = $_SESSION["authUser"]["userId"];
+  $email = trim($_POST["email"]);
+  $phone = trim($_POST["phone"]);
+  $current_password = trim($_POST["current_password"]);
+  $new_password = trim($_POST["new_password"]);
+  $confirm_password = trim($_POST["confirm_password"]);
+  
+  $errors = [];
+  
+  if (empty($email) && empty($phone) && empty($new_password)) {
+      $errors[] = "At least one field must be filled out to update your account.";
   }
+  
+  if (!empty($new_password)) {
+      if ($new_password !== $confirm_password) {
+          $errors[] = "New password and confirmation password do not match.";
+      }
+      
+      $query = "SELECT password FROM admins WHERE adminId = ?";
+      $stmt = mysqli_prepare($conn, $query);
+      mysqli_stmt_bind_param($stmt, "i", $admin_id);
+      mysqli_stmt_execute($stmt);
+      $result = mysqli_stmt_get_result($stmt);
+      
+      if ($row = mysqli_fetch_assoc($result)) {
+        $query = "SELECT email, phoneNumber AS phone, password FROM admins WHERE adminId = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $admin_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($row = mysqli_fetch_assoc($result)) {
+            // Update session with the latest user details before making changes
+            $_SESSION["authUser"]["email"] = $row["email"];
+            $_SESSION["authUser"]["phone"] = $row["phone"];
+            $_SESSION["authUser"]["password"] = $row["password"];
+
+            if ($current_password !== $row['password']) {
+                header("Refresh:0");        
+                $errors[] = "Current password is incorrect.";
+            }
+        } else {
+            header("Refresh:0");        
+            $errors[] = "User not found.";
+        }
+        mysqli_stmt_close($stmt);
+                  
+          if ($current_password !== $row['password']) {
+              header("Refresh:0");        
+              $errors[] = "Current password is incorrect.";
+          }
+      } else {
+          $errors[] = "User not found.";
+      }
+      // mysqli_stmt_close($stmt);
+  }
+  
+  if (empty($errors)) {
+      $query = "UPDATE admins SET ";
+      $updates = [];
+      $params = [];
+      $types = "";
+      
+      if (!empty($email)) {
+          $updates[] = "email = ?";
+          $params[] = $email;
+          $types .= "s";
+      }
+      
+      if (!empty($phone)) {
+          $updates[] = "phoneNumber = ?";
+          $params[] = $phone;
+          $types .= "s";
+      }
+      
+      if (!empty($new_password)) {
+          $updates[] = "password = ?";
+          $params[] = $new_password;
+          $types .= "s";
+      }
+      
+      $query .= implode(", ", $updates) . " WHERE adminId = ?";
+      $params[] = $admin_id;
+      $types .= "i";
+      
+      $stmt = mysqli_prepare($conn, $query);
+      mysqli_stmt_bind_param($stmt, $types, ...$params);
+      
+      if (mysqli_stmt_execute($stmt)) {
+        if (!empty($email)) {
+            $_SESSION["authUser"]["email"] = $email;
+        }
+        if (!empty($phone)) {
+            $_SESSION["authUser"]["phone"] = $phone;
+        }
+        if (!empty($new_password)) {
+            $_SESSION["authUser"]["password"] = $new_password; // Store securely in production
+        }
+        header("Refresh:0");        
+        echo "<div class='alert alert-success'>Account updated successfully.</div>";
+    }
+     else {
+          header("Refresh:0");        
+          echo "<div class='alert alert-danger'>Error updating account.</div>";
+      }
+      mysqli_stmt_close($stmt);
+  } else {
+      foreach ($errors as $error) {
+          header("Refresh:0");        
+          echo "<div class='alert alert-danger'>$error</div>";
+      }
+  }
+}
+ob_end_flush(); // Send the output at the end
 ?>
 
 <div class="pagetitle">
@@ -199,13 +319,13 @@ if (isset($_POST["update"])) {
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Phone Number</div>
               <div class="col-lg-9 col-md-8">
-              <?php echo htmlspecialchars($phone); ?>
+              <?php echo htmlspecialchars($admin_phone); ?>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Email</div>
               <div class="col-lg-9 col-md-8">
-              <?php echo htmlspecialchars($email); ?>
+              <?php echo htmlspecialchars($admin_email); ?>
               </div>
             </div>
             <div class="row">
