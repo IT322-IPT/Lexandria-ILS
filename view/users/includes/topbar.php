@@ -15,7 +15,7 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="" class="logo d-flex align-items-center">
         <img src="../../assets/img/lexandria-dako.png" alt="" width="25">
         <span class="d-none d-lg-block" style="font-family: 'MicrobrewSoftOne'; font-size: 24px; color: #4a4a4a; letter-spacing: 0.5px;">Lexandria</span>
         <!-- <img src="../../assets/img/lexandria-text.png" alt="Lexandria" width="200"> -->
@@ -35,9 +35,9 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../../assets/img/ye.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($fullName); ?></span>
-          </a><!-- End Profile Iamge Icon -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">My Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -51,7 +51,7 @@ $fullName = isset($_SESSION["authUser"]["fullName"]) ? $_SESSION["authUser"]["fu
             <li>
               <a class="dropdown-item d-flex align-items-center" href="../users/users-profile.php">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>Go to Profile</span>
               </a>
             </li>
             <li>

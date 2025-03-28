@@ -19,14 +19,14 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="pages-pending-requests.php">
-          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <i class="bi bi-arrow-return-right"></i> <!-- originally bi bi-person -->
           <span>Pending Requests</span>
         </a>
       </li><!-- End Pending Requests (previously Profile Page) Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="pages-my-books.php">
-          <i class="bi bi-patch-question-fill"></i> <!-- originally bi bi-person -->
+          <i class="ri ri-book-fill"></i> <!-- originally bi bi-person -->
           <span>My Books</span>
         </a>
       </li><!-- End My Books (previously Profile Page) Nav -->

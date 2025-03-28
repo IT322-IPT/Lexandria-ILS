@@ -15,23 +15,24 @@ include("./includes/topbar.php");
 include("./includes/sidebar-pages-request.php");
 
 if (isset($_SESSION['success_message'])) {
-  echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
-  unset($_SESSION['success_message']);
-}
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            ' . $_SESSION['success_message'] . '
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+    unset($_SESSION['success_message']);
+  }
 
 // $UserID = $_SESSION['authUser']['userId'];
 $FullName = $_SESSION['authUser']['fullName']; 
 $Email = $_SESSION['authUser']['email'];
 ?>
+<div style="align-items: center; display: flex; justify-content: center; margin-top: 10px;">
+    <h1>Can't find a book you're looking for? Let us know!</h1>
+</div>
 
-
-<h1>Can't find a book you're looking for?</h1>
-<h2>Let us know!</h2>
-
-<div class="card">
+<div class="card" style="margin-top: 40px;">
     <div class="card-body">
         <h5 class="card-title">Suggest a book</h5>
-
         <!-- Book Request Form -->
         <form class="row g-3" method="POST" action="add_book_request.php">
         <div class="col-md-12">

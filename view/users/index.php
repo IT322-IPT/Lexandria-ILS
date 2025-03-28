@@ -25,7 +25,7 @@ include("./includes/sidebar.php");
 $searchQuery = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['query'])) {
     $searchQuery = mysqli_real_escape_string($conn, $_POST['query']);
-    $sql = "SELECT * FROM books WHERE title LIKE '%$searchQuery%' OR author LIKE '%$searchQuery%' OR isbn LIKE '%$searchQuery%'" ;
+    $sql = "SELECT * FROM books WHERE title LIKE '%$searchQuery%' OR author LIKE '%$searchQuery%' OR isbn LIKE '%$searchQuery%' OR genre LIKE '%$searchQuery%'" ;
 } else {
     $sql = "SELECT * FROM books";
 }
@@ -35,14 +35,18 @@ if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
 ?>
-
+<div style="text-align: center; margin-bottom: 70px; top: 0;">
+    <img src="../../assets/img/lexandria-dako-transparent.png" alt="Site Logo" style="max-width: 7%">
+</div>
 <body>
+
     <div class="container mt-4">
+
         <div class="search-bar d-flex justify-content-center mb-5">
             <form class="search-form d-flex w-100" method="POST" action="" 
                 style="width: 100%; max-width: 100%; background: #f8f9fa; border-radius: 30px; padding: 5px; 
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <input type="text" name="query" placeholder="Search books by title, author, or ISBN..." 
+                <input type="text" name="query" placeholder="Search books by title, author, genre, or ISBN..." 
                     value="<?= htmlspecialchars($searchQuery) ?>" 
                     class="form-control" 
                     style="border: none; outline: none; background: transparent; padding: 12px 15px; border-radius: 30px; flex: 1; font-size: 16px;">
@@ -102,7 +106,7 @@ if (!$result) {
                 </div>
             </div>
             <?php }} else { ?>
-                <div class="col-12 text-center mt-4"><h5 style='color: blue;'>Book not found</h5></div>
+                <div class="col-12 text-center mt-4"><h5 style='color: blue;'>No book found</h5></div>
             <?php } ?>
 
         </div>
