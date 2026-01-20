@@ -1,0 +1,3 @@
+**Lexandria** is an Integrated Library System. It got its name from the **Library of Alexandria** in Alexandria, Egypt, the most famous library of Classical antiquity, that was burnt down over 2,000 years ago. The developer had this in mind while Lexandria was in its early development, attempting to recreate the spirit of a universal library by building an online digital collection spanning multiple genres, ranging from programming textbooks to pop culture fiction.
+
+Developed by **Sheen Ocon** during his junior year in USTP-CDO for their class in **Integrated Programming and Technologies**, Lexandria was designed to handle library operations, including book browsing, borrowing, returning, book requesting, and more.
